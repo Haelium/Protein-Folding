@@ -1,6 +1,6 @@
 function [protein] = generate_protein(protein_length)
 % Initialises a datastructrure to represent a protein
-% Protein datastructure is a 2 dimensional array of monomers
+% Protein is represented by a set of triples representing x and y coordinates with type of amino acid
 
     dims = 1;   % 1 represents a monomer, 0 no monomer
     
