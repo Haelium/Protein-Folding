@@ -16,6 +16,8 @@ T = 10;    % temperature in kelvin
 high_interaction = -4;
 low_interaction = -2;
 E_current = 0;
+E_average = 0;
+E_sum = 0;
 % J is a 20x20 matrix of randomly assigned energy values to represent the
 % interaction energies betweeen monomers
 J = randi([high_interaction, low_interaction], monomer_number, monomer_number);
@@ -95,6 +97,28 @@ for step = 1:number_of_runs
     ylabel('Energy');
     legend ('Energy vs time');         
     hold on;
-    drawnow;       
+    drawnow;
+    
+    % calculate and display average energy of protein
+    E_sum = E_sum + E_current;
+    E_average = E_average / step;
+    subplot(2,2,3);
+    plot(step, E_average, '*g', 'MarkerSize', 2);
+    axis([0 step -10 0]);
+    xlabel('Monte Carlo steps');
+    ylabel('Energy');
+    legend ('Average Energy over time');
+    hold on;
+    drawnow;
+    
+    % display "end to end" length of protein
+    subplot(2,2,4);
+    plot(step, length_end_to_end(protein, protein_length), '-*b', 'MarkerSize', 2);
+    axis([0 step 0 15]);
+    xlabel('Monte Carlo steps');
+    ylabel('Length');
+    legend ('End to end length');
+    hold on;
+    drawnow;
 end
 disp('Folding Complete');
