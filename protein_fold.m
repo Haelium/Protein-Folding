@@ -10,7 +10,7 @@ close;
 
 % Initialisation block
 protein_length = 15;
-number_of_runs = 1000;
+number_of_runs = 100000;
 monomer_number = 20; % There are 20 monomers occuring in nature
 T = 10;    % temperature in kelvin
 high_interaction = -4;
@@ -104,7 +104,7 @@ for step = 1:number_of_runs
     E_average = E_average / step;
     subplot(2,2,3);
     plot(step, E_average, '*g', 'MarkerSize', 2);
-    axis([0 step -10 0]);
+    axis([0 step -0.25 0])
     xlabel('Monte Carlo steps');
     ylabel('Energy');
     legend ('Average Energy over time');
