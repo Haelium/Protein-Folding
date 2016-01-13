@@ -92,7 +92,7 @@ for step = 1:number_of_runs
     % display energy of protein at each step
     subplot(2,2,1);
     plot(step, E_current, '-*r', 'MarkerSize', 2);
-    axis([0 step -30 5]);
+    axis([0 number_of_runs -30 5]);
     xlabel('Monte Carlo steps');
     ylabel('Energy');
     legend ('Energy vs time');         
@@ -104,7 +104,7 @@ for step = 1:number_of_runs
     E_average = E_average / step;
     subplot(2,2,3);
     plot(step, E_average, '*g', 'MarkerSize', 2);
-    axis([0 step -0.25 0])
+    axis([0 number_of_runs -0.1 0])
     xlabel('Monte Carlo steps');
     ylabel('Energy');
     legend ('Average Energy over time');
@@ -114,7 +114,7 @@ for step = 1:number_of_runs
     % display "end to end" length of protein
     subplot(2,2,4);
     plot(step, length_end_to_end(protein, protein_length), '-*b', 'MarkerSize', 2);
-    axis([0 step 0 15]);
+    axis([0 number_of_runs 0 15]);
     xlabel('Monte Carlo steps');
     ylabel('Length');
     legend ('End to end length');
