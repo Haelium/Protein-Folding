@@ -10,7 +10,7 @@ close;
 
 % Initialisation block
 protein_length = 15;
-number_of_runs = 100000;
+number_of_runs = 500000;
 monomer_number = 20; % There are 20 monomers occuring in nature
 T = 10;    % temperature in kelvin
 high_interaction = -4;
