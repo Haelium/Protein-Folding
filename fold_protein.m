@@ -1,4 +1,4 @@
-function [protein, E_mean, L_mean] = fold_protein(protein, T, J, number_of_runs)
+function [E_mean, L_mean, protein] = fold_protein(protein, T, J, number_of_runs)
 % Folds a protein
 %   Detailed explanation goes here
 
@@ -51,7 +51,7 @@ function [protein, E_mean, L_mean] = fold_protein(protein, T, J, number_of_runs)
             % Compare energy value of new protein shape with the old shape
             E_after_move = protein_energy(copy_protein, J, protein_length);
             E_current = protein_energy(protein, J, protein_length);
-            delta_E = E_current - E_after_move;
+            delta_E = E_after_move - E_current;
 
             if delta_E <= 0  % If energy decreases, always move
                 protein = copy_protein;
