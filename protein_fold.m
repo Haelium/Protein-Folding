@@ -30,9 +30,9 @@ for T = T_range;
     step = step + 1;    % increment step counter
     % temporarily store results in variable
     subindex = fold_protein(protein, T, J, number_of_runs);
-    E(step) = subindex(2);
-    L(step) = subindex(3);
-    disp(T);
+    E(step) = subindex(4);
+    L(step) = subindex(5);
+    disp(step);
 end
 
 disp('Folding Complete');

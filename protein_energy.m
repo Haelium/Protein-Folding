@@ -24,14 +24,14 @@ function [ total_energy ] = protein_energy(protein, J, protein_length)
         y_neighbour = protein(3, monomer_num);
         energy = monomer_interaction_energy (x_neighbour, y_neighbour, protein, monomer_num, J); % This will check if
         % occupied and if so, calculate the interaction energy
-        total_energy=total_energy+energy;        
+        total_energy = total_energy + energy;        
         
         % direction must be above
         x_neighbour = protein(2, monomer_num);
         y_neighbour = protein(3, monomer_num)+1;
         energy = monomer_interaction_energy (x_neighbour, y_neighbour, protein, monomer_num, J); % This will check if
         % occupied and if so, calculate the interaction energy
-        total_energy=total_energy+energy;
+        total_energy = total_energy + energy;
     end
 
 end
