@@ -12,8 +12,6 @@ close;
 T = 10;
 protein_length = 15;
 number_of_runs = 500000;
-E = zeros(size(number_of_runs));
-L = zeros(size(number_of_runs));
 
 monomer_number = 20; % There are 20 monomers occuring in nature
 high_interaction = -4;
