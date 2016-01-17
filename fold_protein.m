@@ -1,4 +1,4 @@
-function [E_mean, L_mean, protein] = fold_protein(protein, T, J, number_of_runs)
+function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, number_of_runs)
 % Folds a protein
 %   Detailed explanation goes here
 
@@ -68,9 +68,5 @@ function [E_mean, L_mean, protein] = fold_protein(protein, T, J, number_of_runs)
         E_of_protein(step) = E_current;
         L_of_protein(step) = length_end_to_end(protein, protein_length);
     end
-    
-    E_mean = mean(E_of_protein);
-    L_mean = mean(L_of_protein);
-
 end
 

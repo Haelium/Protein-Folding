@@ -13,8 +13,10 @@ close;
 T_range = 1:0.2:10;
 protein_length = 15;
 number_of_runs = 500000;
-E = zeros(size(T_range));
-L = zeros(size(T_range));
+E_temp = zeros(size(number_of_runs));
+L_temp = zeros(size(number_of_runs));
+E_vs_T = zeros(size(T_range));
+L_vs_T = zeros(size(T_range));
 
 monomer_number = 20; % There are 20 monomers occuring in nature
 high_interaction = -4;
@@ -29,7 +31,9 @@ step = 0;
 for T = T_range;
     step = step + 1;    % increment step counter
     % temporarily store results in variable
-    [E(step), L(step), ~] = fold_protein(protein, T, J, number_of_runs);
+    [E_temp, L_temp, ~] = fold_protein(protein, T, J, number_of_runs);
+    E_vs_T(step) = mean(E_temp);
+    L_vs_T(step) = mean(L_temp);
     disp(step);
 end
 
