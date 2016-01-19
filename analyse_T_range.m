@@ -11,7 +11,7 @@ close;
 % Initialisation block
 % Temperature conditions in Kelvin
 T_range = 1:0.2:10;
-protein_length = 15;
+protein_length = 100;
 number_of_runs = 500000;
 E_temp = zeros(size(number_of_runs));
 L_temp = zeros(size(number_of_runs));
@@ -34,7 +34,7 @@ for T = T_range;
     [E_temp, L_temp, ~] = fold_protein(protein, T, J, number_of_runs);
     E_vs_T(step) = mean(E_temp);
     L_vs_T(step) = mean(L_temp);
-    disp(step);
+    disp(T);
 end
 
 disp('Folding Complete');
