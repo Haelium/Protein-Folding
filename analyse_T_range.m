@@ -8,10 +8,11 @@
 clear;
 close;
 
+rng('shuffle');
 % Initialisation block
 % Temperature conditions in Kelvin
-T_range = 1:0.2:10;
-protein_length = 100;
+T_range = 1:10;
+protein_length = 15;
 number_of_runs = 500000;
 E_temp = zeros(size(number_of_runs));
 L_temp = zeros(size(number_of_runs));
@@ -23,7 +24,7 @@ high_interaction = -4;
 low_interaction = -2;
 % J is a 20x20 matrix of randomly assigned energy values to represent the
 % interaction energies betweeen monomers
-J = randi([high_interaction, low_interaction], monomer_number, monomer_number);
+J = -4 + 2*rand(20,20);
 
 protein = generate_protein(protein_length, monomer_number);
 
