@@ -11,8 +11,12 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
     % Choose a link at random and see if it can be moved
     for step = 1:number_of_runs
         step
-        link_number = randi(protein_length);   % pick random monomer on chain
-        direction = ceil(rand()*8);   % pick direction denoted by number from 1 to 8
+        % Choose legal move
+        occupied = true;
+        stretched = true;
+        while occupied || stretched
+            link_number = randi(protein_length);   % pick random monomer on chain
+            direction = ceil(rand()*8);   % pick direction denoted by number from 1 to 8
             switch direction
             case 1          % RIGHT and UP
                 x_new = protein(2, link_number)+1;
@@ -35,14 +39,16 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
             case 7          % LEFT and UP
                 x_new = protein(2, link_number)-1;
                 y_new = protein(3, link_number)+1;
-                otherwise	% STATIC and UP
+            otherwise	% STATIC and UP
                 x_new = protein(2, link_number);
                 y_new = protein(3, link_number)+1;
             end
-        % check if chosen location is occupied
-        occupied = site_occupied(x_new, y_new, protein);
-        % check if chosen location causes "stretch"
-        stretched = check_stretch(protein, protein_length, link_number, x_new, y_new);
+            % check if chosen location is occupied
+            occupied = site_occupied(x_new, y_new, protein);
+            % check if chosen location causes "stretch"
+            stretched = check_stretch(protein, protein_length, link_number, x_new, y_new);
+        end
+        
         % if chosen location not occupied, create copy of protein with new
         % shape
         if ~occupied && ~stretched
