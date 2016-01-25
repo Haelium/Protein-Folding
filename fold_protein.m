@@ -59,8 +59,8 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
                 E_current = E_after_move;
             end
         end
-     end
-     E_of_protein(step) = E_current;
-     L_of_protein(step) = length_end_to_end(protein, protein_length);
+        E_of_protein(step) = E_current;
+        L_of_protein(step) = length_end_to_end(protein, protein_length);
+    end
 end
 
