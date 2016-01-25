@@ -16,32 +16,21 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
         stretched = true;
         while occupied || stretched
             link_number = randi(protein_length);   % pick random monomer on chain
-            direction = ceil(rand()*8);   % pick direction denoted by number from 1 to 8
+            direction = ceil(rand()*4);   % pick direction denoted by number from 1 to 8
             switch direction
-            case 1          % RIGHT and UP
+                case 1          % RIGHT and UP
                 x_new = protein(2, link_number)+1;
                 y_new = protein(3, link_number)+1;
-            case 2          % RIGHT and STATIC
-                x_new = protein(2, link_number)+1;
-                y_new = protein(3, link_number);
-            case 3          % RIGHT and DOWN
+                case 2          % RIGHT and DOWN
                 x_new = protein(2, link_number)+1;
                 y_new = protein(3, link_number)-1;
-            case 4          % STATIC and DOWN
-                x_new = protein(2, link_number);
-                y_new = protein(3, link_number)-1;
-            case 5          % LEFT and DOWN
+                case 3          % LEFT and DOWN
                 x_new = protein(2, link_number)-1;
                 y_new = protein(3, link_number)-1;
-            case 6          % LEFT and STATIC
-                x_new = protein(2, link_number)-1;
-                y_new = protein(3, link_number);
-            case 7          % LEFT and UP
+                case 4          % LEFT and UP
                 x_new = protein(2, link_number)-1;
                 y_new = protein(3, link_number)+1;
-            otherwise	% STATIC and UP
-                x_new = protein(2, link_number);
-                y_new = protein(3, link_number)+1;
+                otherwise
             end
             % check if chosen location is occupied
             occupied = site_occupied(x_new, y_new, protein);
@@ -49,31 +38,29 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
             stretched = check_stretch(protein, protein_length, link_number, x_new, y_new);
         end
         
-        % if chosen location not occupied, create copy of protein with new
-        % shape
-        if ~occupied && ~stretched
-            copy_protein = protein;
-            copy_protein(2, link_number) = x_new;
-            copy_protein(3, link_number) = y_new;
-            % Compare energy value of new protein shape with the old shape
-            E_after_move = protein_energy(copy_protein, J, protein_length);
-            E_current = protein_energy(protein, J, protein_length);
-            delta_E = E_after_move - E_current;
+        % After finding legal move, make protein with that move and compare
+        % energy levels
+        copy_protein = protein;
+        copy_protein(2, link_number) = x_new;
+        copy_protein(3, link_number) = y_new;
+        % Compare energy value of new protein shape with the old shape
+        E_after_move = protein_energy(copy_protein, J, protein_length);
+        E_current = protein_energy(protein, J, protein_length);
+        delta_E = E_after_move - E_current;
 
-            if delta_E < 0  % If energy decreases, always move
+        if delta_E < 0  % If energy decreases, always move
+            protein = copy_protein;
+            E_current = E_after_move;
+        else    % If delta_E is positive, the change will cost energy, is only 
+                % made if the following statistical condition is met
+            boltzmann_factor = exp(-delta_E / T);
+            if boltzmann_factor > rand
                 protein = copy_protein;
                 E_current = E_after_move;
-            else    % If delta_E is positive, the change will cost energy, is only 
-                    % made if the following statistical condition is met
-                boltzmann_factor = exp(-delta_E / T);
-                if boltzmann_factor > rand
-                    protein = copy_protein;
-                    E_current = E_after_move;
-                end
             end
         end
-        E_of_protein(step) = E_current;
-        L_of_protein(step) = length_end_to_end(protein, protein_length);
-    end
+     end
+     E_of_protein(step) = E_current;
+     L_of_protein(step) = length_end_to_end(protein, protein_length);
 end
 

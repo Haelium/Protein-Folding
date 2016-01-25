@@ -12,7 +12,7 @@ rng('shuffle');
 % Initialisation block
 % Temperature conditions in Kelvin
 T_range = 1:10;
-protein_length = 15;
+protein_length = 100;
 number_of_runs = 500000;
 E_temp = zeros(size(number_of_runs));
 L_temp = zeros(size(number_of_runs));

@@ -33,6 +33,8 @@ function [ total_energy ] = protein_energy(protein, J, protein_length)
         % occupied and if so, calculate the interaction energy
         total_energy = total_energy + energy;
     end
-
+    % Since monomer interactions have been double counted, energy
+    % calculated is twice as high as it should be
+    total_energy = total_energy / 2;
 end
 
