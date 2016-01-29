@@ -1,6 +1,8 @@
 function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, number_of_runs)
 % Folds a protein
-%   Detailed explanation goes here
+%   Finds a legal, randomly selected monomer move, calculates energy
+%   beforee and after the move. Then the decision is made whether to make 
+%   the move or not based on those energy levels.
 
     % Initialisation block
     E_of_protein = zeros(1, number_of_runs);
