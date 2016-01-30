@@ -5,6 +5,7 @@ function [ total_energy ] = protein_energy(protein, J, protein_length)
     
     total_energy = 0;
     
+    % Can run in parrallel
     for monomer_num = 1:protein_length
         x_neighbour = protein(2, monomer_num)+1;
         y_neighbour = protein(3, monomer_num);

@@ -28,6 +28,7 @@ J = -4 + 2*rand(20,20);
 
 protein = generate_protein(protein_length, monomer_number);
 
+% This loop can be made parallel with changes to step
 step = 0;
 for T = T_range;
     step = step + 1;    % increment step counter
