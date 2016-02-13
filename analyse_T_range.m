@@ -12,7 +12,7 @@ rng('shuffle');
 % Initialisation block
 % Temperature conditions in Kelvin
 T_range = 1:10;
-protein_length = 100;
+protein_length = 30;
 number_of_runs = 500000;
 E_temp = zeros(size(number_of_runs));
 L_temp = zeros(size(number_of_runs));
@@ -29,13 +29,11 @@ J = -4 + 2*rand(20,20);
 protein = generate_protein(protein_length, monomer_number);
 
 % This loop can be made parallel with changes to step
-step = 0;
-for T = T_range;
-    step = step + 1;    % increment step counter
+parfor T = T_range;
     % temporarily store results in variable
     [E_temp, L_temp, ~] = fold_protein(protein, T, J, number_of_runs);
-    E_vs_T(step) = mean(E_temp);
-    L_vs_T(step) = mean(L_temp);
+    E_vs_T(T) = mean(E_temp);
+    L_vs_T(T) = mean(L_temp);
     disp(T);
 end
 
