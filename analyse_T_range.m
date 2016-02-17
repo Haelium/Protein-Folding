@@ -11,13 +11,10 @@ close;
 rng('shuffle');
 % Initialisation block
 % Temperature conditions in Kelvin
-T_range = 1:10;
-protein_length = 30;
+protein_length = 15;
 number_of_runs = 500000;
-E_temp = zeros(size(number_of_runs));
-L_temp = zeros(size(number_of_runs));
-E_vs_T = zeros(size(T_range));
-L_vs_T = zeros(size(T_range));
+E_vs_T = zeros(size(100));
+L_vs_T = zeros(size(100));
 
 monomer_number = 20; % There are 20 monomers occuring in nature
 high_interaction = -4;
@@ -28,13 +25,15 @@ J = -4 + 2*rand(20,20);
 
 protein = generate_protein(protein_length, monomer_number);
 
+
+T = [ 10, 9.5, 9, 8.5, 8, 7.5, 7, 6.5, 6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1]
 % This loop can be made parallel with changes to step
-parfor T = T_range;
+for step = 1:size(T, 2);
+    T(step)
     % temporarily store results in variable
-    [E_temp, L_temp, ~] = fold_protein(protein, T, J, number_of_runs);
-    E_vs_T(T) = mean(E_temp);
-    L_vs_T(T) = mean(L_temp);
-    disp(T);
+    [E_temp, L_temp, protein] = fold_protein(protein, T(step), J, number_of_runs);
+    E_vs_T(step) = mean(E_temp);
+    L_vs_T(step) = mean(L_temp);
 end
 
 disp('Folding Complete');

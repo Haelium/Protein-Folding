@@ -12,11 +12,7 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
     
     % Choose a link at random and see if it can be moved
     for step = 1:number_of_runs
-        step
         % Choose legal move
-        occupied = true;
-        stretched = true;
-        while occupied || stretched
             link_number = randi(protein_length);   % pick random monomer on chain
             direction = ceil(rand()*4);   % pick direction denoted by number from 1 to 8
             switch direction
@@ -38,8 +34,8 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
             occupied = site_occupied(x_new, y_new, protein);
             % check if chosen location causes "stretch"
             stretched = check_stretch(protein, protein_length, link_number, x_new, y_new);
-        end
         
+        if ~occupied && ~stretched
         % After finding legal move, make protein with that move and compare
         % energy levels
         copy_protein = protein;
@@ -61,6 +57,10 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
                 E_current = E_after_move;
             end
         end
+        end
+        %plot(protein(2,:), protein(3,:));
+        %axis([0 120 0 120]);
+        %drawnow;
         E_of_protein(step) = E_current;
         L_of_protein(step) = length_end_to_end(protein, protein_length);
     end
