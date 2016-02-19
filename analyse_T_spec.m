@@ -10,8 +10,8 @@ close;
 rng('shuffle');
 % Initialisation block
 % Temperature conditions in Kelvin
-T = 10;
-protein_length = 15;
+T = 1;
+protein_length = 100;
 number_of_runs = 500000;
 
 monomer_number = 20; % There are 20 monomers occuring in nature
@@ -19,7 +19,7 @@ high_interaction = -4;
 low_interaction = -2;
 % J is a 20x20 matrix of randomly assigned energy values to represent the
 % interaction energies betweeen monomers
-J = -4 + 2*rand(20,20);
+J = -4 + 2 * rand(20, 20);
 
 init_protein = generate_protein(protein_length, monomer_number);
 

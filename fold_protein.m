@@ -12,6 +12,7 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
     
     % Choose a link at random and see if it can be moved
     for step = 1:number_of_runs
+        % step
         % Choose legal move
             link_number = randi(protein_length);   % pick random monomer on chain
             direction = ceil(rand()*4);   % pick direction denoted by number from 1 to 8
@@ -46,17 +47,17 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
         E_current = protein_energy(protein, J, protein_length);
         delta_E = E_after_move - E_current;
 
-        if delta_E < 0  % If energy decreases, always move
-            protein = copy_protein;
-            E_current = E_after_move;
-        else    % If delta_E is positive, the change will cost energy, is only 
-                % made if the following statistical condition is met
-            boltzmann_factor = exp(-delta_E / T);
-            if boltzmann_factor > rand
+            if delta_E < 0  % If energy decreases, always move
                 protein = copy_protein;
                 E_current = E_after_move;
+            else    % If delta_E is positive, the change will cost energy, is only 
+                % made if the following statistical condition is met
+                boltzmann_factor = exp(-delta_E / T);
+                if boltzmann_factor > rand
+                    protein = copy_protein;
+                    E_current = E_after_move;
+                end
             end
-        end
         end
         %plot(protein(2,:), protein(3,:));
         %axis([0 120 0 120]);
