@@ -6,13 +6,13 @@
 
 clear;
 close;
-
+figure
 rng('shuffle');
 % Initialisation block
 % Temperature conditions in Kelvin
 T = 1;
-protein_length = 100;
-number_of_runs = 500000;
+protein_length = 30;
+number_of_runs = 2000000;
 
 monomer_number = 20; % There are 20 monomers occuring in nature
 high_interaction = -4;
@@ -22,7 +22,9 @@ low_interaction = -2;
 J = -4 + 2 * rand(20, 20);
 
 init_protein = generate_protein(protein_length, monomer_number);
+newprotein = init_protein;
 
 [E, L, final_protein] = fold_protein(init_protein, T, J, number_of_runs);
+[E2, L2, newprotein] = fold_protein(newprotein, T, J, number_of_runs);
 
 disp('Folding Complete');

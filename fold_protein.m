@@ -12,7 +12,7 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
     
     % Choose a link at random and see if it can be moved
     for step = 1:number_of_runs
-        % step
+         step
         % Choose legal move
             link_number = randi(protein_length);   % pick random monomer on chain
             direction = ceil(rand()*4);   % pick direction denoted by number from 1 to 8
@@ -59,8 +59,8 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, num
                 end
             end
         end
-        %plot(protein(2,:), protein(3,:));
-        %axis([0 120 0 120]);
+        %plot(protein(2,:), protein(3,:), '.-r');
+        %axis([0 50 0 50]);
         %drawnow;
         E_of_protein(step) = E_current;
         L_of_protein(step) = length_end_to_end(protein, protein_length);
