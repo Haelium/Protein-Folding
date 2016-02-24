@@ -14,6 +14,9 @@ J = -4 + 2 * rand(20, 20);
 protein = generate_protein(protein_length, monomer_number);
 
 T = [4 3 2 1];
-for step = size(T,2)
+for step = 1:size(T,2)
+    step
     [E(step,:), L(step,:), protein] = fold_protein(protein, T(step), J, number_of_runs);
 end
+
+E = reshape(E,1,2000000);
