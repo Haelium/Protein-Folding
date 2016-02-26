@@ -18,5 +18,3 @@ for step = 1:size(T,2)
     step
     [E(step,:), L(step,:), protein] = fold_protein(protein, T(step), J, number_of_runs);
 end
-
-E = reshape(E,1,2000000);

@@ -11,8 +11,8 @@ rng('shuffle');
 % Initialisation block
 % Temperature conditions in Kelvin
 T = 1;
-protein_length = 30;
-number_of_runs = 2000000;
+protein_length = 15;
+number_of_runs = 500000;
 
 monomer_number = 20; % There are 20 monomers occuring in nature
 high_interaction = -4;

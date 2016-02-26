@@ -1,17 +1,17 @@
-function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, number_of_runs)
+function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, J, metro_steps)
 % Folds a protein
 %   Finds a legal, randomly selected monomer move, calculates energy
 %   beforee and after the move. Then the decision is made whether to make 
 %   the move or not based on those energy levels.
 
     % Initialisation block
-    E_of_protein = zeros(1, number_of_runs);
-    L_of_protein = zeros(1, number_of_runs);
-    E_current = 0;
+    E_of_protein = zeros(1, metro_steps);
+    L_of_protein = zeros(1, metro_steps);
     protein_length = size(protein, 2);
+    E_current = protein_energy(protein, J, protein_length);
     
     % Choose a link at random and see if it can be moved
-    for step = 1:number_of_runs
+    for step = 1:metro_steps
         % Choose legal move
             link_number = randi(protein_length);   % pick random monomer on chain
             direction = ceil(rand()*4);   % pick direction denoted by number from 1 to 8
