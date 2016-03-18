@@ -50,13 +50,13 @@ void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {
     mxArray *e_out;
-    int w;  // Length of protein
+    int w, len;  // dimensions of protein
     double *p = (double*)mxGetPr(prhs[0]);
     double *e;
-    e_out = plhs[0] = mxCreateDoubleMatrix(1, 1, mxREAL);
+    
+    plhs[0] = mxCreateDoubleMatrix(1, 1, mxREAL);
     e = mxGetPr(plhs[0]);
-    protein pro;    // protein object for more readable code
-    int len;        // Length of protein
+    protein pro;    // protein object for more readable cod
     
     
     double energy = 0;
@@ -73,68 +73,35 @@ void mexFunction(int nlhs, mxArray *plhs[],
     for (int i = 0; i < len; i++) {
         energy += monomer_energy(i, pro);
     }
-    /*
-    for (int x = 0; x < len; x++) {
-        cout << pro.m[x] << " ";
-    }
-    cout << endl;
-    for (int x = 0; x < len; x++) {
-        cout << pro.x[x] << " ";
-    }
-    cout << endl;
-    for (int x = 0; x < len; x++) {
-        cout << pro.y[x] << " ";
-    }
-    cout << endl;
-    */
+
     e[0] = energy / 2;
-    //mexPrintf("%lf-", energy);
-    //*mxGetPr = energy / 2;
     
     return;
 }
 
 double monomer_energy(int m, protein& pro)
 {
-    /*if (m == 2){
-        mexPrintf("%d, %d", pro.x[m], pro.y[m]);
-    }*/
     double energy = 0;
 	for (int i = 0; i < pro.m.size(); i++) {
         if (abs(i - m) > 1) {
             // Neighbour to the right
             if ((pro.x[m] + 1 == pro.x[i]) && (pro.y[m] == pro.y[i])) {
                 energy += J[pro.m[i]][pro.m[m]];
-                //mexPrintf("Neighbour found-");
             }
             // Neighbour to the left
             if ((pro.x[m] - 1 == pro.x[i]) && (pro.y[m] == pro.y[i])) {
                 energy += J[pro.m[i]][pro.m[m]];
-                //mexPrintf("Neighbour found-");
             }
             // Neighbour above
             if ((pro.x[m] == pro.x[i]) && (pro.y[m] + 1 == pro.y[i])) {
                 energy += J[pro.m[i]][pro.m[m]];
-                //mexPrintf("Neighbour found-");
             }
             // Neighbour below
             if ((pro.x[m] == pro.x[i]) && (pro.y[m] - 1 == pro.y[i])) {
                 energy += J[pro.m[i]][pro.m[m]];
-                //mexPrintf("Neighbour found-");
             }
         }
-		/*
-		if (protein[1][m] + 1 == protein[1][x] && protein[2][m] + 1 == protein[2][m])
-                        energy += 20;
-                if (protein[1][m] + 1 == protein[1][x] && protein[2][m] - 1 == protein[2][m])
-                        energy += 20;
-                if (protein[1][m] - 1 == protein[1][x] && protein[2][m] + 1 == protein[2][m])
-                        energy += 20;
-                if (protein[1][m] - 1 == protein[1][x] && protein[2][m] - 1 == protein[2][m])
-                        energy += 20;
-         **/
 
 	}
-    //mexPrintf("%lf", energy);
 	return energy;
 }
