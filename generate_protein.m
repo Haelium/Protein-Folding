@@ -9,11 +9,13 @@ function [protein] = generate_protein(protein_length, monomer_number)
     % Initial x and y coordinates for protein
     x_offset = 5;
     y_offset = 15;
+    z_offset = 15;
     init_x = x_offset : (protein_length + x_offset - 1);
-    init_y = ones(1,protein_length) * y_offset;
+    init_y = ones(1, protein_length) * y_offset;
+    init_z = ones(1, protein_length) * z_offset;
     
     % concatenate A with x and y coordinates to generate a protein
     % represented as an array of monomers with associated coordinates
-    protein = cat(1, A, init_x, init_y);
+    protein = cat(1, A, init_x, init_y, init_z);
 
 end

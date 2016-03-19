@@ -5,9 +5,10 @@
 %   protein. Also will display initial and final protein structure
 
 mex pro_energy.cpp  % Compile mex file
-T = 10;
-protein_length = 1;
-number_of_runs = 500000;
-init_protein = generate_protein(15, 20);
+T = 1;
+protein_length = 15;
+%number_of_runs = 500000;
+number_of_runs = 2*10^5;
+init_protein = generate_protein(protein_length, 20);
 [E, L, final_protein] = fold_protein(init_protein, T, number_of_runs);
 save(strcat(datestr(now, 'dd_mmm_yy_HHMM'),'-', mat2str(number_of_runs), '_steps_at_', mat2str(T), 'K'), 'E', 'L', 'final_protein');

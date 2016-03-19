@@ -13,7 +13,7 @@ public:
     vector<int> m;
     vector<int> x;
     vector<int> y;
-    //vector<int> z;
+    vector<int> z;
 public:
     // Insert functions
     ~protein(){}
@@ -68,7 +68,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
         pro.m.push_back( p[i * w]);
         pro.x.push_back( p[i * w + 1]);
         pro.y.push_back( p[i * w + 2]);
-        //pro.z.push_back(p[x * l2 + 3]);
+        pro.z.push_back( p[i * 1 + 3]);
     }
     for (int i = 0; i < len; i++) {
         energy += monomer_energy(i, pro);
@@ -85,21 +85,42 @@ double monomer_energy(int m, protein& pro)
 	for (int i = 0; i < pro.m.size(); i++) {
         if (abs(i - m) > 1) {
             // Neighbour to the right
-            if ((pro.x[m] + 1 == pro.x[i]) && (pro.y[m] == pro.y[i])) {
+            if ( (pro.x[m] + 1 == pro.x[i]) 
+            && (pro.y[m] == pro.y[i])
+            && (pro.z[m] == pro.z[i]) ) {
                 energy += J[pro.m[i]][pro.m[m]];
             }
             // Neighbour to the left
-            if ((pro.x[m] - 1 == pro.x[i]) && (pro.y[m] == pro.y[i])) {
+            if ( (pro.x[m] - 1 == pro.x[i]) 
+            && (pro.y[m] == pro.y[i])
+            && (pro.z[m] == pro.z[i]) ) {
                 energy += J[pro.m[i]][pro.m[m]];
             }
             // Neighbour above
-            if ((pro.x[m] == pro.x[i]) && (pro.y[m] + 1 == pro.y[i])) {
+            if ( (pro.x[m] == pro.x[i]) 
+            && (pro.y[m] + 1 == pro.y[i]) 
+            && (pro.z[m] == pro.z[i]) ) {
                 energy += J[pro.m[i]][pro.m[m]];
             }
             // Neighbour below
-            if ((pro.x[m] == pro.x[i]) && (pro.y[m] - 1 == pro.y[i])) {
+            if ( (pro.x[m] == pro.x[i]) 
+            && (pro.y[m] - 1 == pro.y[i])
+            && (pro.z[m] == pro.z[i]) ) {
                 energy += J[pro.m[i]][pro.m[m]];
             }
+            // Neighbour forwards
+            if ( (pro.x[m] == pro.x[i]) 
+            && (pro.y[m] == pro.y[i])
+            && (pro.z[m] + 1 == pro.z[i]) ) {
+                energy += J[pro.m[i]][pro.m[m]];
+            }
+            // Neighbour backwards
+            if ( (pro.x[m] == pro.x[i]) 
+            && (pro.y[m] == pro.y[i])
+            && (pro.z[m] - 1 == pro.z[i]) ) {
+                energy += J[pro.m[i]][pro.m[m]];
+            }
+            
         }
 
 	}
