@@ -14,72 +14,8 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, metro_
     % Choose a link at random and see if it can be moved
     for step = 1:metro_steps
         % Choose legal move
-        %step
-            link_number = randi(protein_length);   % pick random monomer on chain
-            direction = ceil(rand()*12);   % pick direction denoted by number from 1 to 12
-            switch direction
-                case 1          % RIGHT and UP
-                    x_new = protein(2, link_number) + 1;
-                    y_new = protein(3, link_number) + 1;
-                    z_new = protein(4, link_number);
-                case 2          % RIGHT and DOWN
-                    x_new = protein(2, link_number) + 1;
-                    y_new = protein(3, link_number) - 1;
-                    z_new = protein(4, link_number);
-                case 3          % LEFT and DOWN
-                    x_new = protein(2, link_number) - 1;
-                    y_new = protein(3, link_number) - 1;
-                    z_new = protein(4, link_number);
-                case 4          % LEFT and UP
-                    x_new = protein(2, link_number) - 1;
-                    y_new = protein(3, link_number) + 1;
-                    z_new = protein(4, link_number);
-                case 5          % FORWARD and UP
-                    x_new = protein(2, link_number);
-                    y_new = protein(3, link_number) + 1;
-                    z_new = protein(4, link_number) + 1;
-                case 6          % FORWARD and DOWN
-                    x_new = protein(2, link_number);
-                    y_new = protein(3, link_number) - 1;
-                    z_new = protein(4, link_number) + 1;
-                case 7          % FORWARD and RIGHT
-                    x_new = protein(2, link_number) + 1;
-                    y_new = protein(3, link_number);
-                    z_new = protein(4, link_number) + 1;
-                case 8          % FORWARD and LEFT
-                    x_new = protein(2, link_number) - 1;
-                    y_new = protein(3, link_number);
-                    z_new = protein(4, link_number) + 1;
-                case 9          % BACKWARD and UP
-                    x_new = protein(2, link_number);
-                    y_new = protein(3, link_number) + 1;
-                    z_new = protein(4, link_number) - 1;
-                case 10          % BACKWARDD and DOWN
-                    x_new = protein(2, link_number);
-                    y_new = protein(3, link_number) - 1;
-                    z_new = protein(4, link_number) - 1;
-                case 11         % BACKWARD and RIGHT
-                    x_new = protein(2, link_number) + 1;
-                    y_new = protein(3, link_number);
-                    z_new = protein(4, link_number) - 1;
-                case 12         % BACKWARD and LEFT
-                    x_new = protein(2, link_number) - 1;
-                    y_new = protein(3, link_number);
-                    z_new = protein(4, link_number) - 1;
-            end
-            % check if chosen location is occupied
-            occupied = site_occupied(x_new, y_new, z_new, protein);
-            % check if chosen location causes "stretch"
-            stretched = check_stretch(protein, protein_length, link_number, x_new, y_new, z_new);
-        
-        if ~occupied && ~stretched
-            % After finding legal move, make protein with that move and compare
-            % energy levels
-            copy_protein = protein;
-            copy_protein(2, link_number) = x_new;
-            copy_protein(3, link_number) = y_new;
-            copy_protein(4, link_number) = z_new;
-            % Compare energy value of new protein shape with the old shape
+            copy_protein = propose_move(protein);
+            
             E_after_move = pro_energy(copy_protein);
             E_current = pro_energy(protein);
 
@@ -96,10 +32,11 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, metro_
                     E_current = E_after_move;
                 end
             end
-        end
         
+        %plot3(protein(2,:), protein(3,:), protein(4,:), '-r', 'Marker', '.', 'MarkerEdgeColor', 'b', 'MarkerSize', 8);
+        %axis([0 35 0 35 0 35]);
+        %drawnow;
         E_of_protein(step) = E_current;
         L_of_protein(step) = length_end_to_end(protein, protein_length);
     end
 end
-
