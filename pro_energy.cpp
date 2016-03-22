@@ -63,17 +63,34 @@ void mexFunction(int nlhs, mxArray *plhs[],
     len = mxGetN(prhs[0]);
     w = mxGetM(prhs[0]);
     
-    //mexPrintf("length = %d - width = %d\n", l1, l2);
+    
     for (int i = 0; i < len; i++) {
         pro.m.push_back( p[i * w]);
         pro.x.push_back( p[i * w + 1]);
         pro.y.push_back( p[i * w + 2]);
-        pro.z.push_back( p[i * 1 + 3]);
+        pro.z.push_back( p[i * w + 3]);
     }
+    /*
+    for (int i = 0; i < len; i++) {
+        mexPrintf("%d-", pro.m[i]);
+    }
+    mexPrintf("\n");
+    for (int i = 0; i < len; i++) {
+        mexPrintf("%d-", pro.x[i]);
+    }
+    mexPrintf("\n");
+    for (int i = 0; i < len; i++) {
+        mexPrintf("%d-", pro.y[i]);
+    }
+    mexPrintf("\n");
+    for (int i = 0; i < len; i++) {
+        mexPrintf("%d-", pro.z[i]);
+    }
+    mexPrintf("\n");*/
     for (int i = 0; i < len; i++) {
         energy += monomer_energy(i, pro);
     }
-
+    //mexPrintf("%lf", energy / 2);
     e[0] = energy / 2;
     
     return;

@@ -4,7 +4,6 @@ function [E_of_protein, L_of_protein, protein] = fold_protein(protein, T, metro_
 %   beforee and after the move. Then the decision is made whether to make 
 %   the move or not based on those energy levels.
 
-    rng(1)
     % Initialisation block
     E_of_protein = zeros(1, metro_steps);
     L_of_protein = zeros(1, metro_steps);
