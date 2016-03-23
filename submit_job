@@ -8,6 +8,8 @@
 #PBS -m bea
 #PBS -M davidbourke94@gmail.com
 
+module load apps matlab
+
 cd /ichec/home/users/dbourke/Protein-Folding
 matlab -nodisplay > matlab.log << EOF
 par_fold_fixed(24, 27, 1, 2*10^7)
