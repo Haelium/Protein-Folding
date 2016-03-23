@@ -37,6 +37,7 @@ public:
     vector<int> z;
 public:
     protein(double*, int, int);
+    ~protein(){}
     double size();
     double monomer_energy(int m);
     double energy();
@@ -73,7 +74,7 @@ inline double protein::size()
     c_z /= (double)len;
     
     for (int i = 0; i < len; i++) {
-        s += pow(c_x - x[i], 2) + pow(c_y - y[i], 2) + pow(c_z - z[i], 2);
+        s += pow(c_x - (double)x[i], 2) + pow(c_y - (double)y[i], 2) + pow(c_z - (double)z[i], 2);
     }
     return s;
 }
