@@ -37,7 +37,7 @@ public:
     vector<int> z;
 public:
     protein(double*, int, int);
-    double ruggedness();
+    double size();
     double monomer_energy(int m);
     double energy();
 };
@@ -52,7 +52,7 @@ inline protein::protein(double* p, int len, int w)
     }
 }
 
-inline double protein::ruggedness()
+inline double protein::size()
 {
     // Length of protein
     int len = m.size();
@@ -61,7 +61,7 @@ inline double protein::ruggedness()
     double c_y = 0;
     double c_z = 0;
     // Initial ruggedness set to 0;
-    double rug = 0;
+    double s = 0;
     
     for (int i = 0; i < len; i++) {
         c_x += (double)x[i];
@@ -73,9 +73,9 @@ inline double protein::ruggedness()
     c_z /= (double)len;
     
     for (int i = 0; i < len; i++) {
-        rug += sqrt(pow(c_x - x[i], 2) + pow(c_y - y[i], 2) + pow(c_z - z[i], 2));
+        s += pow(c_x - x[i], 2) + pow(c_y - y[i], 2) + pow(c_z - z[i], 2);
     }
-    return rug;
+    return s;
 }
 
 inline double protein::monomer_energy(int mono)

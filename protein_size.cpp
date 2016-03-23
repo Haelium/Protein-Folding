@@ -9,5 +9,5 @@ void mexFunction(int nlhs, mxArray *plhs[],
     int len = mxGetN(prhs[0]);
     int w = mxGetM(prhs[0]);
     protein pro((double*)mxGetPr(prhs[0]), len, w);
-    output[0] = pro.ruggedness();
+    output[0] = pro.size();
 }
