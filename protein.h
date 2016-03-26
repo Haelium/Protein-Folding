@@ -73,13 +73,10 @@ inline double protein::size()
     c_x /= (double)len;
     c_y /= (double)len;
     c_z /= (double)len;
-    mexPrintf("cxyz=%lf-%lf-%lf\n", c_x, c_y, c_z);
-    mexPrintf("ixyz=%lf-%lf-%lf\n", (double)x[1], (double)y[1], (double)z[1]);
     
     for (int i = 0; i < len; i++) {
         s += pow((double)x[i] - c_x, 2) + pow((double)y[i] - c_y, 2) + pow((double)z[i] - c_z, 2);
     }
-    mexPrintf("size=%lf\n", s / len);
     return (s / len);
 }
 
