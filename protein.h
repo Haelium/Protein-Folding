@@ -72,11 +72,12 @@ inline double protein::size()
     c_x /= (double)len;
     c_y /= (double)len;
     c_z /= (double)len;
+    //mexPrintf("%lf-%lf-%lf\n", c_x, c_y, c_z);
     
     for (int i = 0; i < len; i++) {
-        s += pow(c_x - (double)x[i], 2) + pow(c_y - (double)y[i], 2) + pow(c_z - (double)z[i], 2);
+        s += pow((double)x[i] - c_x, 2) + pow((double)y[i] - c_y, 2) + pow((double)z[i] - c_z, 2);
     }
-    return s;
+    return (s / len);
 }
 
 inline double protein::monomer_energy(int mono)
@@ -119,5 +120,5 @@ inline double protein::energy()
     for (int i = 0; i < m.size(); i++) {
         energy += monomer_energy(i);
     }
-    return energy / 2;
+    return energy;
 }
