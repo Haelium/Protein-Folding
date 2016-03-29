@@ -1,6 +1,7 @@
-function [length] = length_end_to_end(protein, protein_length)
+function [length] = length_end_to_end(protein)
     % This function measures the distance between the first and last
     % monomers on the protein
+    protein_length = size(protein, 2);
     x_2 = protein(2, 1);
     y_2 = protein(3, 1);
     x_1 = protein(2, protein_length);

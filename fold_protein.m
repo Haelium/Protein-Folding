@@ -1,4 +1,4 @@
-function [E_of_protein, S_of_protein, protein] = fold_protein(protein, T, metro_steps)
+function [E_of_protein, S_of_protein, L_of_protein, protein] = fold_protein(protein, T, metro_steps)
 % Folds a protein
 %   Finds a legal, randomly selected monomer move, calculates energy
 %   beforee and after the move. Then the decision is made whether to make 
@@ -7,6 +7,7 @@ function [E_of_protein, S_of_protein, protein] = fold_protein(protein, T, metro_
     % Initialisation block
     E_of_protein = zeros(1, metro_steps);
     S_of_protein = zeros(1, metro_steps);
+    L_of_protein = zeros(1, metro_steps);
     E_current = protein_energy(protein);
     
     % Choose a link at random and see if it can be moved
@@ -36,5 +37,6 @@ function [E_of_protein, S_of_protein, protein] = fold_protein(protein, T, metro_
         %drawnow;
         E_of_protein(step) = E_current;
         S_of_protein(step) = protein_size(protein);
+        L_of_protein(step) = length_end_to_end(protein);
     end
 end

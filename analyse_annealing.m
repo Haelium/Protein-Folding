@@ -9,9 +9,8 @@ rng('shuffle');
 % Temperature conditions in Kelvin
 protein_length = 30;
 number_of_runs = 500000;
-monomer_number = 20;
 
-protein = generate_protein(protein_length, monomer_number);
+protein = generate_protein(protein_length);
 
 T = [4 3 2 1];
 for step = 1:size(T,2)
