@@ -47,4 +47,3 @@ function [stretched] = check_stretch(protein, protein_length, link_number, x_new
         end
     end
 end
-

@@ -1,18 +1,13 @@
-clear;
-close;
-
 rng('shuffle');
-% Initialisation block
-% Temperature conditions in Kelvin
 protein_length = 27;
 number_of_runs = 500000;
+J = -4 + 2 * rand(20,20);
 
 protein = generate_protein(protein_length);
 
 T = [6 5 4 3 2];
 for step = 1:size(T,2)
-    step
-    [E(step,:), S(step,:), L(step,:), ~, ~, protein] = fold_protein(protein, T(step), number_of_runs);
+    [E(step,:), S(step,:), L(step,:), ~, ~, protein] = fold_protein(protein, T(step), number_of_runs, J);
 end
 
 E = [E(1,:), E(2,:), E(3,:), E(4,:), E(5,:)];
