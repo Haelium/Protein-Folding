@@ -1,0 +1,16 @@
+ #!/bin/bash
+#PBS -l nodes=8:ppn=24
+#PBS -l walltime=24:00:00
+#PBS -N lattice_job_T_1
+#PBS -A dtphy001c
+#PBS -r n
+#PBS -j oe
+#PBS -m bea
+#PBS -M davidbourke94@gmail.com
+
+module load apps matlab
+
+cd /ichec/home/users/dbourke/repo_2/Protein-Folding
+matlab -nodisplay > matlab.log << EOF
+par_fold_fixed(1000, 27, 1, 5*10^7, -3, 1)
+EOF
