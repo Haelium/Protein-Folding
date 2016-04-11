@@ -1,5 +1,5 @@
 function [] = par_fold_fixed( simulations, length, T, steps, J_mu, J_sigma)
-    J = normrnd(J_mu, J_sigma, 20);
+    J = J_gaussian(J_mu, J_sigma);
     min_E = zeros(1,simulations);
     min_S = zeros(1,simulations);
     min_L = zeros(1,simulations);
