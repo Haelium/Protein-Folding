@@ -11,6 +11,7 @@
 module load apps matlab
 
 cd /ichec/home/users/dbourke/repo_2/Protein-Folding
-matlab -nodisplay > matlab.log << EOF
-par_fold_fixed(1000, 27, 1, 5*10^7, -3, 1)
+matlab -nodisplay -nojvm -nosplash > matlab.log << EOF
+parpool(192)
+par_fold_fixed(1000, 27, 1, 2.5*10^7, -3, 1)
 EOF
