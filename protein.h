@@ -64,12 +64,12 @@ inline double protein::size()
 
 inline double protein::monomer_energy(int mono)
 {
-    double energy = 0;
-	for (int i = 0; i < m.size(); i++) {
+	double energy = 0;
+    for (int i = 0; i < m.size(); i++) {
         if (abs(i - mono) > 1) {
             // Neighbour to the right
             if ( (x[mono] + 1 == x[i]) && (y[mono] == y[i]) && (z[mono] == z[i]) ) {
-                energy += J[m[i]][m[mono]];
+            	energy += J[m[i]][m[mono]];
             }
             // Neighbour to the left
             if ( (x[mono] - 1 == x[i]) && (y[mono] == y[i]) && (z[mono] == z[i]) ) {
@@ -85,14 +85,14 @@ inline double protein::monomer_energy(int mono)
             }
             // Neighbour forwards
             if ( (x[mono] == x[i]) && (y[mono] == y[i]) && (z[mono] + 1 == z[i]) ) {
-                energy += J[m[i]][m[mono]];
+             	energy += J[m[i]][m[mono]];
             }
             // Neighbour backwards
             if ( (x[mono] == x[i]) && (y[mono] == y[i]) && (z[mono] - 1 == z[i]) ) {
                 energy += J[m[i]][m[mono]];
             }
         }
-	}
+    }
 	return energy;
 }
 
