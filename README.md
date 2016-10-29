@@ -1,6 +1,6 @@
 # Protein-Folding
 
-Protein-Folding is a collection of scripts and functions written to reproduce and expand upon results from Chapter 12 of "Computational Physics 2nd Edition" by N. Giordana and H. Nakanishi.
+Protein-Folding is a collection of scripts and functions written to reproduce and expand upon results from Chapter 12 of "Computational Physics 2nd Edition" by N. Giordano and H. Nakanishi.
 
 Ultimately the protein should be modelled as a cubic lattice and the code should be optimised to run on a cluster.
 
